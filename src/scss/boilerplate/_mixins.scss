@@ -1,0 +1,218 @@
+// Regular mixins
+@mixin debug($border-width: 1px, $color: #FF0000) {
+	border: $border-width solid $color !important;
+}
+@mixin debugg($background-color: #CCCCCC) {
+	background-color: $background-color !important;
+}
+@mixin min-height($height: 400px){
+	min-height: $height;
+	height: auto !important;
+	height: $height;
+}
+@mixin margin-and-padding($margin:0px, $padding:0px, $important: ''){
+	margin: $margin$important;
+	padding: $padding$important;
+}
+@mixin letterpress(){
+    text-shadow: 1px 1px #000;
+}
+@mixin letterpress-white(){
+    text-shadow: 1px 1px #FFF;
+}
+@mixin letterpress-grey(){
+    text-shadow: 1px 1px #AAA;
+}
+@mixin letterpress-reset(){
+	text-shadow: 0px 0px;
+}
+// Customised (and corrected) version of mixin from Compass support site)
+// For this version, a fallback strip background image and fallback solid hex colour must be specified
+@mixin linear-gradient($colour-fallback, $color-stops, $start: false, $image: false) {
+	$start: top;
+	background-color: $colour-fallback;
+//  @include background-image($image, linear-gradient($start, $color-stops));
+  	@include background-image($image);
+  	@include background-image(linear-gradient($start, $color-stops));
+}
+
+// Creates a cross-browser rgba background color.
+@mixin background-rgba($red: 0, $green: 0, $blue: 0, $alpha: 0.75){
+    background-color: rgb($red, $green, $blue);
+    background-color: rgba($red, $green, $blue, $alpha);
+    @if ($legacy-support-for-ie) {
+        @include has-layout;	
+        background-color: transparent\9; $color: rgba($red, $green, $blue, $alpha);
+        @include filter-gradient($color, $color);
+    }
+}
+// Creates a cross browser compatible semi-transparent background colour
+@mixin alpha-background-color($color, $background) {
+  $percent: alpha($color) * 100%;
+  $opaque: opacify($color, 1);
+  $solid-color: mix($opaque, $background, $percent);
+  background-color: $solid-color;
+  background-color: $color;
+}
+
+@mixin transparent($color, $alpha) {
+	$rgba: rgba($color, $alpha);
+	$ie-hex-str: ie-hex-str($rgba);
+//  background: rgb(red($color), green($color), blue($color));
+	$red: red($color);
+	$green: green($color);
+	$blue: blue($color);
+	background: rgb($red, $green, $blue);
+	background: transparent;
+	background: $rgba;
+	filter:progid:DXImageTransform.Microsoft.gradient(startColorstr=#{$ie-hex-str},endColorstr=#{$ie-hex-str});
+	zoom: 1;
+}
+@function generate-ie-filter-str($start-colour-hex, $end-colour-hex, $gradient-type) { // Gradient types: 0 = vertical (top to bottom), 1 = horizontal (left to right)
+	@return unquote("progid:DXImageTransform.Microsoft.gradient( startColorstr='" + ie-hex-str($start-colour-hex) + "', endColorstr='" + ie-hex-str($end-colour-hex) + "', GradientType=" + $gradient-type + " )");
+}
+// Fix for vertical linear gradient backgrounds in IE (top to bottom)
+@mixin background-gradient-vertical-ie($start: 0%, $end: 100%, $start-colour: #000000, $end-colour: #FFFFFF){
+	background: -ms-linear-gradient(top, $start-colour $start, $end-colour $end); /* IE10+ */
+	background: linear-gradient(to bottom, $start-colour $start, $end-colour $end); /* W3C */
+	filter: generate-ie-filter-str($start-colour, $end-colour, 0); /* IE6-9 */
+}
+// Fix for horizontal linear gradient backgrounds in IE (left to right)
+@mixin background-gradient-horizontal-ie($start: 0%, $end: 100%, $start-colour: #000000, $end-colour: #FFFFFF){
+	background: -ms-linear-gradient(left, $start-colour $start, $end-colour $end); /* IE10+ */
+	background: linear-gradient(to right, $start-colour $start, $end-colour $end); /* W3C */
+	filter: generate-ie-filter-str($start-colour, $end-colour, 1); /* IE6-9 */
+}
+
+// Breakpoint handling
+@mixin until($pixel_width) {
+	@media screen and (max-width: $pixel_width) {
+		@content;
+	}
+}
+@mixin break-at($pixel_width) {
+	@media screen and (min-width: $pixel_width) {
+		@content;
+	}
+}
+@mixin between($min-pixel_width, $max-pixel_width) {
+	@media screen and (min-width: $min-pixel_width) and (max-width: $max-pixel_width) {
+		@content;
+	}
+}
+
+// font sizes in px and rem formats (set font-size in html element to 62.5% (sets up the Base 10 stuff)
+//@mixin font-size($sizeValue: 1.0, $importance: ' ') {
+//	font-size: ($sizeValue * 16) + px + $importance;
+//	font-size: $sizeValue + em + $importance;
+//	line-height: ($sizeValue * (16*1.5)) + px + $importance;
+//	line-height: ($sizeValue*1.5) + em + $importance;
+//}
+// Alternative from css-tricks.com which takes a pixel value input (I've added line-height)
+//@mixin font-size($sizeValue: 1.6) {
+//  font-size: ($sizeValue * 10) + px;
+//  font-size: $sizeValue + rem;
+//}
+
+@mixin font-size($size:1.6, $line: $size * 1.5){
+    font-size:   ($size * 10) + px;
+    line-height: ($line * 10) + px;
+    font-size:   $size + rem;
+	line-height: $line + rem;
+}
+@mixin font-size-only($size:1.6){
+    font-size:   ($size * 10) + px;
+    font-size:   $size + rem;
+}
+
+// use to override line-height values created by the above mixin
+@mixin line-height($sizeValue: 1.0, $importance: ' ') {
+	line-height: ($sizeValue * 10) + px + $importance;
+	line-height: ($sizeValue/1.6) + em + $importance;
+}
+
+// Hover transitions
+@mixin hover-transitions() {
+	@include transition-property(background-color,background-image,color,border-radius);
+	@include transition-duration(0.25s);
+	@include transition-timing-function(ease);
+}
+
+@mixin horizontal-fade-transparent-to-black() {
+	// CSS generated by http://www.colorzilla.com/gradient-editor/
+	// IE9 SVG, needs conditional override of 'filter' to 'none'
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIxMDAlIiB5Mj0iMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjQ0JSIgc3RvcC1jb2xvcj0iIzAwMDAwMCIgc3RvcC1vcGFjaXR5PSIwLjc1Ii8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiMwMDAwMDAiIHN0b3Atb3BhY2l0eT0iMC43NSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(left,  rgba(0,0,0,0) 0%, rgba(0,0,0,0.75) 44%, rgba(0,0,0,0.75) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, right top, color-stop(0%,rgba(0,0,0,0)), color-stop(44%,rgba(0,0,0,0.75)), color-stop(100%,rgba(0,0,0,0.75))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 44%,rgba(0,0,0,0.75) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 44%,rgba(0,0,0,0.75) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(left,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 44%,rgba(0,0,0,0.75) 100%); /* IE10+ */
+	background: linear-gradient(to right,  rgba(0,0,0,0) 0%,rgba(0,0,0,0.75) 44%,rgba(0,0,0,0.75) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00000000', endColorstr='#bf000000',GradientType=1 ); /* IE6-8 */
+}
+@mixin vertical-fade-transparent-to-white() {
+//	@include background-image(linear-gradient(#aaaaaa, #FFFFFF));
+
+	// CSS generated by http://www.colorzilla.com/gradient-editor/ (SCSS didn't work...)
+	// IE9 SVG, needs conditional override of 'filter' to 'none'
+	background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiA/Pgo8c3ZnIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgd2lkdGg9IjEwMCUiIGhlaWdodD0iMTAwJSIgdmlld0JveD0iMCAwIDEgMSIgcHJlc2VydmVBc3BlY3RSYXRpbz0ibm9uZSI+CiAgPGxpbmVhckdyYWRpZW50IGlkPSJncmFkLXVjZ2ctZ2VuZXJhdGVkIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSIgeDE9IjAlIiB5MT0iMCUiIHgyPSIwJSIgeTI9IjEwMCUiPgogICAgPHN0b3Agb2Zmc2V0PSIwJSIgc3RvcC1jb2xvcj0iI2ZmZmZmZiIgc3RvcC1vcGFjaXR5PSIwIi8+CiAgICA8c3RvcCBvZmZzZXQ9IjEwMCUiIHN0b3AtY29sb3I9IiNmZmZmZmYiIHN0b3Atb3BhY2l0eT0iMSIvPgogIDwvbGluZWFyR3JhZGllbnQ+CiAgPHJlY3QgeD0iMCIgeT0iMCIgd2lkdGg9IjEiIGhlaWdodD0iMSIgZmlsbD0idXJsKCNncmFkLXVjZ2ctZ2VuZXJhdGVkKSIgLz4KPC9zdmc+);
+	background: -moz-linear-gradient(top,  rgba(255,255,255,0) 0%, rgba(255,255,255,1) 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(255,255,255,0)), color-stop(100%,rgba(255,255,255,1))); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  rgba(255,255,255,0) 0%,rgba(255,255,255,1) 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#00ffffff', endColorstr='#ffffff',GradientType=0 ); /* IE6-8 */
+}
+@mixin standard-transitions($transition-time: 0.25s) {
+	@include single-transition(all, $transition-time, ease-in-out);
+}
+
+
+@mixin general-padding() {
+	padding: $main-gutter $main-gutter-perc;
+}
+// Grey gradient
+@mixin gradient-vertical-grey() {
+	@include background-image(linear-gradient((white, white 33%, #EEEEEE 66%, #CCCCCC)));
+}
+
+@mixin container-settings() {
+	overflow: hidden;
+	max-width: $max-width;
+	margin: 0 auto;
+}
+@mixin general-container-padding-vertical() {
+	padding-top: $main-gutter;
+	padding-bottom: $main-gutter;
+}
+@mixin general-container-padding-vertical-tighter() {
+	padding-top: $main-gutter/2;
+	padding-bottom: $main-gutter/2;
+}
+@mixin general-container-padding-horizontal() {
+	padding-left: $main-gutter-perc*1.7;
+	padding-right: $main-gutter-perc*1.7;
+	@include break-at($breakpoint-nav) {
+		padding-left: $main-gutter-perc;
+		padding-right: $main-gutter-perc;			
+	}
+	@include break-at($max-width) {
+		padding-left: $main-gutter-fixed;
+		padding-right: $main-gutter-fixed;
+	}
+}
+@mixin general-container-padding() {
+	@include general-container-padding-vertical();
+	@include general-container-padding-horizontal();
+}
+
+// For vertical alignment
+// Example use: .element p { @include vertical-align; }
+@mixin vertical-align {
+  position: relative;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  transform: translateY(-50%);
+}

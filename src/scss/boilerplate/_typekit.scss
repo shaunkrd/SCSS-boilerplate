@@ -1,0 +1,19 @@
+h1, h2, h3, h4, p, li, td, th, blockquote, a {
+	transition: visibility 0s linear 800ms;
+	.wf-loading & {
+		visibility: hidden;
+		opacity: 0;
+		@include transition(
+		    opacity 500ms linear,
+		    visibility 0s linear 500ms
+		)
+	}
+	.wf-active & {
+		visibility: visible;
+		opacity: 1;
+		@include transition(
+		    opacity 500ms linear,
+		    visibility 0s linear
+		)
+	}
+}

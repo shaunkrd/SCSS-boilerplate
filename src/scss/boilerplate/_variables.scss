@@ -1,0 +1,63 @@
+// Overall page container max width
+	$max-width: 67em !default; // 1072px
+
+// Breakpoints
+	// Multi column
+	$breakpoint-multi-column: 34em; // 544px;
+	// Navigation
+	$breakpoint-nav: 51.25em; // 820px
+
+// Guttering
+	// Base horizontal percentage
+	$main-gutter-perc: 4.5% !default;
+	// Base vertical
+	$main-gutter: 2em !default;
+	// Width for full size desktop layout
+	$main-gutter-fixed: 3em;
+	
+// Narrow elements
+	$narrow-width: 50%;
+	$skinny-width: 30%;
+
+// Rounded corners: General border radius for .rounded objects
+	$border-radius-general: 5px !default;
+	
+// Padding: General padding for .padded objects
+	$padding-general: 1.25em 1.75em !default;
+
+// Grids
+	$grid-gutter-perc: 5%;
+	$grid-gutter-vertical: 2.5em;
+	$grid-padding: 2em;
+	// 2 column breakpoint
+	$breakpoint-grid-2cols: $breakpoint-multi-column; // 34em / 544px;
+	// 3 column breakpoint
+	$breakpoint-grid-3cols: 66em; // 1056px
+
+// Background colours
+	$base-bg-colour: white;
+	$base-bg-colour-alt: #EEEEEE;
+
+// Text
+	$base-text-colour: #777777;
+	$base-text-colour-lighter: #AAAAAA;
+	$base-font-stack: Georgia, serif;
+	$base-font-weight: normal;
+	$base-text-size: 1.1em;
+	$base-text-size-larger: 1.3em;
+	$base-text-line-height: 1.5em;
+	
+// Links
+	$base-link-colour: #2895F1; 
+	
+// Keyline
+	$keyline: lighten($base-text-colour,35%);
+
+// Common brand colours
+// From http://designpieces.com/2012/12/social-media-colours-hex-and-rgb/
+	$facebook: #3b5998;
+	$twitter: #55acee;
+	$google-plus: #dd4b39;
+	$rss: #f26522;
+	$linkedin: #0077B5;
+	$instagram: #517fa4;
