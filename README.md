@@ -17,3 +17,13 @@ This repo can be used as a starting point for any Sass/SCSS Compass project.
 5. Delete the now not needed 'hd-boilerplate-scss' directory
 
 6. For the project specific SCSS and variables, create a directory inside 'src/scss' named 'project', and a directory within 'project' named 'templates' for the template specific SCSS
+
+7. Now you need to install the node elements in order to be able to use Grunt to compile the CSS and the Javascript. Firstly, open Terminal and navigate to theme directory
+
+8. Run the following command which will create a directory named 'node_modules' (500MB approx) with content dependent on the dependencies defined in the package.json. It might take 20 to 30 minutes for the process to complete:
+
+            npm install
+
+9. Now to enable the grunt commands (eg grunt watch, 'grunt grunticon') via terminal run the command:
+
+            sudo npm install -g grunt-cli
