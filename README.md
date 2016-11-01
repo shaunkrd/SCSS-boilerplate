@@ -24,6 +24,18 @@ This repo can be used as a starting point for any Sass/SCSS Compass project.
 
             npm install
 
-9. Now to enable the grunt commands (eg grunt watch, 'grunt grunticon') via terminal run the command:
+9. You can check the installed packages and their versions by running the command:
+
+            npm list --depth=0
+
+10. You can check for and apply any updated versions of the packages by just running the command (it is sometimes necessary to run the command more than once for it to find and update versions):
+
+            updtr
+
+11. If the command doesn't work then you'll need to install the package which you can do with:
+
+            sudo npm install -g updtr
+
+12. Now to enable the grunt commands (eg grunt watch, 'grunt grunticon') via terminal run the command:
 
             sudo npm install -g grunt-cli
