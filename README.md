@@ -6,7 +6,7 @@ This repo can be used as a starting point for any Sass/SCSS Compass project.
 
 1. Open Terminal and navigate to the site project directory.
 
-2. Paste in the following (replacing username and password with the Bitbucket connection details:
+2. Paste in the following (replacing username and password with the Bitbucket connection details) and click enter:
 
             git clone https://username:password@bitbucket.org/hanoverdigital/hd-boilerplate-scss.git
 
