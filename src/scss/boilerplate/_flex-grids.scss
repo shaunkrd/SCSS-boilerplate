@@ -16,8 +16,7 @@
 //
 // This gap filling can be prevented by adding the class 'grid' to the grid
 
-
-.flex-grid {
+@mixin flex-grid($grid-gutter-vertical-var: $grid-gutter-vertical, $grid-gutter-horizontal-var: $grid-gutter-perc) {
 	display: flex;
 	flex-direction: row;
 	flex-wrap: wrap;
@@ -26,8 +25,9 @@
 	> div {
 		border: 1px solid $keyline;
 		padding: $grid-padding;
-		margin-bottom: $grid-gutter-vertical;
+		margin-bottom: $grid-gutter-vertical-var;
 		text-align: center;
+		width: 100%;
 	}
 	&.grid-elements-no-padding {
 		> div {
@@ -43,7 +43,7 @@
 	// 2 column breakpoint
 	@include break-at($breakpoint-grid-2cols) {
 		> div {
-			width: 50% - ($grid-gutter-perc / 2);
+			width: 50% - ($grid-gutter-horizontal-var / 2);
 			&:last-child:nth-child(odd) {
 				margin-left: auto;
 				margin-right: auto;
@@ -66,7 +66,7 @@
 	@include break-at($breakpoint-grid-3cols) {
 		&.grid-max-3cols {
 			> div, > div:last-child { // Also need to explicitly set for the :last-child to overwrite anything set above for smaller screen sizes
-				width: (100% - ($grid-gutter-perc * 2)) / 3;
+				width: (100% - ($grid-gutter-horizontal-var * 2)) / 3;
 				&:nth-child(odd) {
 					margin-left: 0;
 					margin-right: 0;	
@@ -93,15 +93,28 @@
 				// 2nd last element
 				> div:nth-last-child(2):nth-child(3n+1) {
 					margin-left: auto;
-					margin-right: $grid-gutter-perc / 2;
+					margin-right: $grid-gutter-horizontal-var / 2;
 				}
 				// Last element
 				> div:last-child:nth-child(3n+2) {
-					margin-left: $grid-gutter-perc / 2;
+					margin-left: $grid-gutter-horizontal-var / 2;
 					margin-right: auto;
 				}
 		}
 		&.grid-max-3cols.grid-final-row-gaps-filled {
+			// Overwrite any treatment from above of last child if odd
+			> div {
+				&:last-child:nth-child(odd) {
+					width: (100% - ($grid-gutter-horizontal-var * 2)) / 3;
+				}				
+			}
+			&.grid-elements-no-margins {
+				> div {
+					&:last-child:nth-child(odd) {
+						width: 33.33333%;
+					}				
+				}			
+			}
 			// If the final element in the grid is alone in the final row
 			> div:last-child:nth-child(3n+1) {
 				width: 100%;
@@ -112,10 +125,17 @@
 			}
 			&:not(.grid-elements-no-margins) {
 				> div:nth-last-child(2):nth-child(3n+1), > div:last-child:nth-child(3n+2) {
-					width: 50% - ($grid-gutter-perc / 2);
+					width: 50% - ($grid-gutter-horizontal-var / 2);
 				}		
 			}
 		}
 	
-	}
+	}	
+}
+
+.flex-grid {
+	@include flex-grid();
+}
+.flex-grid-tight {
+	@include flex-grid($grid-gutter-vertical-var: 4px, $grid-gutter-horizontal-var: 0.75%);
 }
