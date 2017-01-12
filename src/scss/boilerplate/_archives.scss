@@ -1,0 +1,20 @@
+.archive {
+	.icon-time {
+		padding-right: 0.35em;
+		svg {
+			width: 17px;
+			height: 17px;
+		}
+	}	
+	.archive-list {
+		border-top: 2px solid $keyline;
+		padding-top: $main-gutter/2;
+		li {
+			border-bottom: 2px solid $keyline;
+			padding: 0 0 $main-gutter/2;
+		}
+	}
+	.archive-grid {
+		
+	}
+}

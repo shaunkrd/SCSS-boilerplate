@@ -138,17 +138,17 @@ footer.main-footer {
 			padding: .55em .75em .7em;
 			display: inline-block;
 			position: relative;
-			&.cta-arrow-down {
+			&.cta-arrow-down, &.cta-arrow-right {
 				padding-right: 1.5em;
-			}		
-			#chevron {
-				stroke: white;
 			}
 			&.external-link svg path {
 				fill: white;
 			}
+			&.cta-arrow-down svg polyline, &.cta-arrow-right svg polyline, &.cta-arrow-left svg polyline {
+				stroke: white;
+			}
 		}
-		.icon-arrow-down {
+		.icon-arrow-down, .icon-arrow-right {
 			position: absolute;
 		    top: 0.8em;
 			right: 0.4em;			
@@ -157,9 +157,6 @@ footer.main-footer {
 				height: 15px;
 			}
 		}
-		#chevron {
-			stroke: $base-link-colour;
-		}	
 	}
 	.larger {
 		font-size: $base-text-size-larger;
@@ -209,16 +206,4 @@ footer.main-footer {
 		border-radius: $border-radius-general;
 		padding: $main-gutter $main-gutter-fixed;
 		position: relative;
-		&:after {
-		    content: '';
-		    position: absolute;
-		    left: 48%;
-		    top: 100%;
-		    width: 0;
-		    height: 0;
-		    border-left: 15px solid transparent;
-		    border-right: 15px solid transparent;
-		    border-top: 15px solid white;
-		    clear: both;
-		}
 	}
