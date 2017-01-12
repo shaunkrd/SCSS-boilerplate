@@ -6,13 +6,10 @@ http_path 		= ""
 css_dir 		= "assets/css"
 sass_dir 		= "src/scss"
 images_dir 		= "assets/images"
-javascripts_dir = "assets/js"
+javascripts_dir   = "assets/js"
 fonts_dir 		= "fonts"
 
 output_style 	= :nested
-
-# To enable relative paths to assets via compass helper functions. Uncomment:
-# relative_assets = true
 
 line_comments = false
 color_output = false
