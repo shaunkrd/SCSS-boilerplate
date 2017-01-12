@@ -1,41 +1,17 @@
-# hanover digital : SCSS Boilerplate #
+# An SCSS Boilerplate #
 
-This repo can be used as a starting point for any Sass/SCSS Compass project.
+Use as a starting point for any Sass/SCSS project. Designed as a time-saver and to provide enough CSS for a good, basic layout including handling of Flexbox grids. It uses Compass, but after a few tweaks the code will work well without it.
+
+Some classes referenced in the CSS will be common in WordPress themes, and the CSS is designed to work particularly smoothly inside a WordPress theme.
 
 ### Installation ###
 
-1. Open Terminal and navigate to the site project directory.
+1. Clone the repo to your project directory. For example, if using in a WordPress theme then clone to the root of the theme directory. You will then have a 'src/scss' directory containing the parent 'styles.scss' file and the boilerplate SCSS partials.
 
-2. Paste in the following (replacing username and password with the Bitbucket connection details) and click enter:
+2. Override the boilerplate CSS by using project specific partials and referencing them in 'styles.scss'. The order in which the project specific partials are referenced in 'styles.scss' is important. For example, the boilerplate 'variables.scss' partial contains variables for maximum page width, responsive breakpoints, default text colour and more. Override these with a project specific variables partial which must be referenced in 'styles.scss' *before* the boilerplate styles and layout partial which use the variables.
 
-            git clone https://username:password@bitbucket.org/hanoverdigital/hd-boilerplate-scss.git
+3. Use your favourite taskrunner to compile 'styles.scss' into a CSS file. I use Grunt and set my 'Gruntfile.js' to compile 'src/scss/styles.scss' into 'assets/css/styles.css' (which I also minify at the same time).
 
-3. This will create a directory named 'hd-boilerplate-scss' - check that it contains a 'config.rb' file and a populated 'src/scss' directory
+### Flexbox grids ###
 
-4. Move the contents of the 'hd-boilerplate-scss' directory (there is no need to copy the '.git' directory or the 'README.md' file) into wherever the SCSS needs to be, perhaps the WordPress custom theme directory or the project's web root directory
-
-5. Delete the now not needed 'hd-boilerplate-scss' directory
-
-6. For the project specific SCSS and variables, create a directory inside 'src/scss' named 'project', and a directory within 'project' named 'templates' for the template specific SCSS
-
-7. Now you need to install the node elements in order to be able to use Grunt to compile the CSS and the Javascript. Firstly, open Terminal and navigate to theme directory
-
-8. Run the following command which will create a directory named 'node_modules' (500MB approx) with content dependent on the dependencies defined in the package.json. It might take 20 to 30 minutes for the process to complete:
-
-            npm install
-
-9. You can check the installed packages and their versions by running the command:
-
-            npm list --depth=0
-
-10. You can check for and apply any updated versions of the packages by just running the command (it is sometimes necessary to run the command more than once for it to find and update versions):
-
-            updtr
-
-11. If the command doesn't work then you'll need to install the package which you can do with:
-
-            sudo npm install -g updtr
-
-12. Now to enable the grunt commands (eg grunt watch, 'grunt grunticon') via terminal run the command:
-
-            sudo npm install -g grunt-cli
+Refer to the notes in 'flex-grids.scss' on how to control the presentation of elements within a grid using classes in the HTML.
