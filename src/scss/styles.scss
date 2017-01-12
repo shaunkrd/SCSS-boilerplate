@@ -14,6 +14,12 @@
 @import "boilerplate/styles";
 @import "boilerplate/flex-grids";
 
+// Boilerplate archive styles
+@import "boilerplate/archives";
+
+// Boilerplate CMS styles
+@import "boilerplate/cms";
+
 // Typekit
 @import "boilerplate/typekit";
 
@@ -21,6 +27,10 @@
 //	@import "project/colour-classes";
 //	@import "project/text";
 //	@import "project/templates/header";
+//	@import "project/templates/content";
+//	@import "project/templates/contact";
+//	@import "project/templates/footer";
+//	@import "project/templates/archives";
 
 // Development helpers
 @import "boilerplate/dev";	
