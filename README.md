@@ -1,8 +1,8 @@
 # An SCSS Boilerplate #
 
-Use as a starting point for any Sass/SCSS project. Designed as a time-saver and to provide enough CSS for a good, basic layout including handling of Flexbox grids. It uses Compass, but after a few tweaks the code will work well without it.
+Designed as a time-saver and to provide enough CSS for a good, basic layout including handling of Flexbox grids. It uses Compass, but after a few tweaks the code will work well without it.
 
-Some classes referenced in the CSS will be common in WordPress themes, and the CSS is designed to work particularly smoothly inside a WordPress theme.
+Optimised for and designed to work particularly smoothly inside a WordPress theme - some classes referenced in the CSS will be common in WP themes.
 
 ### Installation ###
 
